@@ -11,16 +11,16 @@ def send_email(to, subject, body):
         # Connect to the email server
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
         server.ehlo()
-        server.login('okolichibkay@gmail.com', 'vqevtzouujkqlgkp')
+        server.login('sender email', 'password')
 
         #create the email message
         message = MIMEText(body)
         message['Subject'] = subject
-        message['From'] = 'okolichibkay@gmail.com'
-        message['To'] = 'chibk.okoli@gmail.com'
+        message['From'] = 'sender email address'
+        message['To'] = 'receiver email address'
             
         # Send the email
-        server.sendmail('okolichibkay@gmail.com', to, message.as_string())
+        server.sendmail('sender email address', to, message.as_string())
         server.quit()
         print("Email sent successfully.")
     except Exception as e:
@@ -44,7 +44,6 @@ def rolling_restart(services_file):
             win32serviceutil.StartService(service)
             print("Service restarted successfully:", service)
             successful_services.append(service)
-            #send_email('chibk.okoli@gmail.com', 'Successful Service Restarts', '\n'.join(successful_services))
         except Exception as e:
             # Save the name of the failed service to the list
             print("Error occurred while restarting service:", service, e)
@@ -81,11 +80,11 @@ def rolling_restart(services_file):
             f.write('\n'.join(failed_services))
         
         # Send an email to the user with the names of the failed services
-        send_email('chibk.okoli@gmail.com', 'Failed Services', '\n'.join(failed_services))
+        send_email('receiver email address', 'Failed Services', '\n'.join(failed_services))
 
     # If any service restarted successfully, send an email to the user
     if successful_services:
-        send_email('chibk.okoli@gmail.com', 'Successful Service Restarts', '\n'.join(successful_services))
+        send_email('receiver email address', 'Successful Service Restarts', '\n'.join(successful_services))
     
 
 
