@@ -1,0 +1,5 @@
+com.docker.service
+datadog-trace-agent
+datadog-process-agent
+JaegerAgent
+datadogagent
